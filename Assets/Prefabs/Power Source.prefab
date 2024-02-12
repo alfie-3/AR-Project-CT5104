@@ -195,3 +195,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   output: {fileID: 7669008638444614331}
+  active: 0
+  strength: 1

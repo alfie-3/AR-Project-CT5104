@@ -23,5 +23,10 @@ public class Input_Node : MonoBehaviour
             recievingInput = false;
             inputStrength = 0f;
         }
+
+        if (transform.parent.TryGetComponent(out ILogicUpdate logicUpdate))
+        {
+            logicUpdate.LogicUpdate();
+        }
     }
 }

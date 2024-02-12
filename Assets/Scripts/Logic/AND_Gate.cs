@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class AND_Gate : LogicGate
 {
-    public void FixedUpdate()
-    {
-            output.Emit(ProcessInputs());
-    }
-
     public override float ProcessInputs()
     {
         if (input_a == null || input_b == null) return 0;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Light : LogicObjectBase
+public class Light : LogicObjectBase, ILogicUpdate
 {
     [SerializeField] Input_Node input;
     [SerializeField] Output_Node output;
@@ -17,11 +17,6 @@ public class Light : LogicObjectBase
         propertyBlock = new MaterialPropertyBlock();
     }
 
-    private void FixedUpdate()
-    {
-        ProcessInput();
-    }
-
     public void ProcessInput()
     {
         if (input == null) return;
@@ -33,5 +28,11 @@ public class Light : LogicObjectBase
         {
             output.Emit(input.RecievedInputStrength);
         }
+    }
+
+    public void LogicUpdate()
+    {
+        ProcessInput();
+        output.Emit(input.RecievedInputStrength);
     }
 }
