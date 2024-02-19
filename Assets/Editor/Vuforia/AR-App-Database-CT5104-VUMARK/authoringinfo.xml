@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<VuforiaUnityInfo>
+    <TargetSet toolVersion="" version="6.0"><VuMark name="Light" previewImage="3ef192c9e0b647cb9d53c587c41745e9_preview.png" targetId="3ef192c9e0b647cb9d53c587c41745e9" version="9.0">
+            <Shape bbox2D="0 0 484.667 511.391" origin="242.667 255.725" />
+            <Code IDlength="10" IDtype="string" />
+        </VuMark>
+    <VuMark name="AndGate" previewImage="d16a1af6f24e4b778127f50e74b06b15_preview.png" targetId="d16a1af6f24e4b778127f50e74b06b15" version="9.0">
+            <Shape bbox2D="0 0 484.667 511.391" origin="242.667 255.725" />
+            <Code IDlength="10" IDtype="string" />
+        </VuMark>
+    <VuMark name="Power" previewImage="8ee64c01c9a64914b20768a8a2578b97_preview.png" targetId="8ee64c01c9a64914b20768a8a2578b97" version="9.0">
+            <Shape bbox2D="0 0 484.667 511.391" origin="242.667 255.725" />
+            <Code IDlength="10" IDtype="string" />
+        </VuMark>
+    </TargetSet>
+</VuforiaUnityInfo>

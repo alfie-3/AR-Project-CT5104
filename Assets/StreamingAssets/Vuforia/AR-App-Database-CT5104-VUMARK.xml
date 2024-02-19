@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<QCARConfig>
+    <Tracking><VuMark name="Light" size="0.10000000149011612 0.10551389049" />
+    <VuMark name="AndGate" size="0.10000000149011612 0.10551389049" />
+    <VuMark name="Power" size="0.10000000149011612 0.10551389049" />
+    </Tracking>
+</QCARConfig>

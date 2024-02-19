@@ -5,16 +5,17 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Vuforia;
 
+[RequireComponent(typeof(VuMarkBehaviour))]
 public class VuforiaObjectDetection : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] VuMarkBehaviour vuMarkBehaviour;
+
+    private void OnEnable()
     {
-        ObserverFactory.
+        //vuMarkBehaviour.
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
         
     }

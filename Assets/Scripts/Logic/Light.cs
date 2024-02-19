@@ -19,8 +19,6 @@ public class Light : LogicObjectBase, ILogicUpdate
 
     public void ProcessInput()
     {
-        if (input == null) return;
-
         propertyBlock.SetFloat("_EmissionMult", input.RecievedInputStrength);
         rend.SetPropertyBlock(propertyBlock);
 

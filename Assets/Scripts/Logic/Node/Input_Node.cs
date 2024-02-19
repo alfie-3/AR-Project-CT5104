@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Windows;
 
-public class Input_Node : MonoBehaviour
+public class Input_Node : NodeBase
 {
     bool recievingInput = false;
     float inputStrength = 0f;
@@ -28,5 +29,23 @@ public class Input_Node : MonoBehaviour
         {
             logicUpdate.LogicUpdate();
         }
+    }
+
+    public override void LinkNode(NodeBase otherNode)
+    {
+        base.LinkNode(otherNode);
+        lineRenderer.enabled = false;
+    }
+
+    public void CancelInput()
+    {
+        recievingInput = false;
+        RecieveInput(0);
+    }
+
+    public override void RemoveNode()
+    {
+        base.RemoveNode();
+        CancelInput();
     }
 }
