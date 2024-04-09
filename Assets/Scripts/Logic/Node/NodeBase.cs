@@ -19,7 +19,7 @@ public abstract class NodeBase : MonoBehaviour, IBeginDragHandler, IDragHandler,
         connectedNode = otherNode;
     }
 
-    public void UnlinkNode()
+    public virtual void UnlinkNode()
     {
         if (connectedNode == null) { return; }
         connectedNode.RemoveNode();
@@ -52,10 +52,12 @@ public abstract class NodeBase : MonoBehaviour, IBeginDragHandler, IDragHandler,
 
         if (Physics.Raycast(ray.origin, ray.direction * 20, out hit, 20, LayerMask.GetMask("Node")))
         {
-            if (hit.transform.gameObject == this.gameObject) { return; }
+            if (hit.transform.gameObject == gameObject || hit.transform.parent == transform.parent) { UnlinkNode(); lineRenderer.enabled = false; return; }
 
             if (hit.transform.TryGetComponent(out NodeBase node))
             {
+                if (node.GetType() == GetType()) { UnlinkNode(); lineRenderer.enabled = false; return; }
+
                 LinkNode(node);
                 node.LinkNode(this);
 
@@ -84,5 +86,26 @@ public abstract class NodeBase : MonoBehaviour, IBeginDragHandler, IDragHandler,
             Vector3 hitPoint = ray.GetPoint(enter);
             lineRenderer.SetPosition(1, hitPoint);
         }
+    }
+
+    public IEnumerator FlashWireEffect(float duration = 0.5f)
+    {
+        MaterialPropertyBlock propertyBlock = new();
+
+        float elapsedTime = 0;
+
+        while (elapsedTime < duration)
+        {
+            propertyBlock.SetFloat("_Stripe_Blend", 1 * Mathf.PingPong(elapsedTime, duration / 2));
+
+            elapsedTime += Time.deltaTime;
+
+            lineRenderer.SetPropertyBlock(propertyBlock);
+
+            yield return null;
+        }
+
+        propertyBlock.SetFloat("_Stripe_Blend", 0);
+        lineRenderer.SetPropertyBlock(propertyBlock);
     }
 }

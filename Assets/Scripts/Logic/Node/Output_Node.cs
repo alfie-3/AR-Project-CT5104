@@ -1,11 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class Output_Node : NodeBase
 {
     float strength;
+
+    bool firstLinkedEmit = true;
+
+    static AudioClip connectAudio;
+
+    private void Awake()
+    {
+        lineRenderer = GetComponent<LineRenderer>();
+
+        if (connectAudio == null)
+            connectAudio = (AudioClip)Resources.Load("Audio/Electric Sound 2", typeof(AudioClip));
+    }
 
     public void Emit(float strength)
     {
@@ -14,6 +23,19 @@ public class Output_Node : NodeBase
         this.strength = strength;
         Input_Node inputNode = connectedNode as Input_Node;
         inputNode.RecieveInput(strength);
+
+        CheckPlayEffect();
+    }
+
+    public void CheckPlayEffect()
+    {
+        if (firstLinkedEmit && strength > 0)
+        {
+            StartCoroutine(FlashWireEffect());
+            firstLinkedEmit = false;
+        }
+
+        firstLinkedEmit = strength <= 0;
     }
 
     public void Update()
@@ -33,13 +55,21 @@ public class Output_Node : NodeBase
     {
         base.LinkNode(otherNode);
         lineRenderer.enabled = true;
+        AudioManager.PlayClip(connectAudio);
+    }
+
+    public override void UnlinkNode()
+    {
+        Emit(0);
+        firstLinkedEmit = true;
+        base.UnlinkNode();
     }
 
     private void OnDrawGizmos()
     {
         if (!connectedNode) return;
 
-        if(strength > 0)
+        if (strength > 0)
             Gizmos.color = Color.green;
         else
             Gizmos.color = Color.red;
