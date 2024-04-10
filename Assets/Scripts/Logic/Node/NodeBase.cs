@@ -9,13 +9,18 @@ public abstract class NodeBase : MonoBehaviour, IBeginDragHandler, IDragHandler,
     [SerializeField] protected NodeBase connectedNode;
     protected LineRenderer lineRenderer;
 
+    static AudioClip grabNoise;
+
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
+
+        if (grabNoise == null) grabNoise = (AudioClip)Resources.Load("Audio/Grab", typeof(AudioClip));
     }
 
     public virtual void LinkNode(NodeBase otherNode)
     {
+        UnlinkNode();
         connectedNode = otherNode;
     }
 
@@ -35,6 +40,7 @@ public abstract class NodeBase : MonoBehaviour, IBeginDragHandler, IDragHandler,
     public void OnBeginDrag(PointerEventData eventData)
     {
         UnlinkNode();
+        AudioManager.PlayClipWithSemitonePitch(grabNoise, 0.5f);
         lineRenderer.enabled = true;
     }
 

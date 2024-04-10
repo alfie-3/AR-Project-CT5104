@@ -18,13 +18,20 @@ public class AudioManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    public static void PlayClip(AudioClip clip, float volume = 1, bool randomisePitch = true)
+    public static void PlayClipWithSemitonePitch(AudioClip clip, float volume = 1)
     {
         if (audioSource == null) { return; }
 
-        if (randomisePitch)
-            RandomisePitch();
+        RandomisePitch();
 
+        audioSource.PlayOneShot(clip, volume);
+    }
+
+    public static void PlayClip(AudioClip clip, float volume = 1, float pitch = 1)
+    {
+        if (audioSource == null) { return; }
+
+        audioSource.pitch = pitch;
         audioSource.PlayOneShot(clip, volume);
     }
 

@@ -55,14 +55,19 @@ public class Output_Node : NodeBase
     {
         base.LinkNode(otherNode);
         lineRenderer.enabled = true;
-        AudioManager.PlayClip(connectAudio);
+        AudioManager.PlayClipWithSemitonePitch(connectAudio);
     }
 
     public override void UnlinkNode()
     {
         Emit(0);
-        firstLinkedEmit = true;
         base.UnlinkNode();
+    }
+
+    public override void RemoveNode()
+    {
+        base.RemoveNode();
+        firstLinkedEmit = true;
     }
 
     private void OnDrawGizmos()
