@@ -11,11 +11,22 @@ public abstract class NodeBase : MonoBehaviour, IBeginDragHandler, IDragHandler,
 
     static AudioClip grabNoise;
 
-    private void Awake()
+    private void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
 
         if (grabNoise == null) grabNoise = (AudioClip)Resources.Load("Audio/Grab", typeof(AudioClip));
+
+        if (connectedNode != null)
+         RemoveNode();
+    }
+
+    private void OnEnable()
+    {
+        if (connectedNode == null)
+        {
+            lineRenderer.enabled = false;
+        }
     }
 
     public virtual void LinkNode(NodeBase otherNode)
@@ -111,6 +122,15 @@ public abstract class NodeBase : MonoBehaviour, IBeginDragHandler, IDragHandler,
             yield return null;
         }
 
+        propertyBlock.SetFloat("_Stripe_Blend", 0);
+        lineRenderer.SetPropertyBlock(propertyBlock);
+    }
+
+    public void CancelEffects()
+    {
+        StopAllCoroutines();
+
+        MaterialPropertyBlock propertyBlock = new();
         propertyBlock.SetFloat("_Stripe_Blend", 0);
         lineRenderer.SetPropertyBlock(propertyBlock);
     }
